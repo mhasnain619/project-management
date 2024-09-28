@@ -12,6 +12,9 @@ const NewProject = ({ onAdd }) => {
         const enteredDescription = description.current.value
         const enteredDueDate = dueDate.current.value
 
+        if (enteredTitle.trim() === '' || enteredDescription.trim() === '' || enteredDueDate.trim() === '') {
+            alert('Please enter a title')
+        }
         onAdd({
             title: enteredTitle,
             description: enteredDescription,

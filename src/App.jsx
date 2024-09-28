@@ -5,13 +5,13 @@ import Sidebar from "./components/Sidebar";
 import NewProject from "./components/NewProject";
 
 function App() {
-  const [prjectsState, setPrjectsState] = useState({
+  const [projectsState, setProjectsState] = useState({
     selectedProjectId: undefined,
     projects: []
   })
 
   function handleStartAddProject() {
-    setPrjectsState(prevState => {
+    setProjectsState(prevState => {
 
       return {
         ...prevState,
@@ -20,30 +20,32 @@ function App() {
     })
   }
   function handleAddProject(projectData) {
-    setPrjectsState(prevState => {
+    setProjectsState(prevState => {
+      const projectId = Math.random()
       const newProject = {
         ...projectData,
-        id: Math.random()
+        id: projectId
       }
       return {
         ...prevState,
+        selectedProjectId: undefined,
         projects: [...prevState.projects, newProject]
       }
     })
   }
-  console.log(prjectsState);
+  console.log(projectsState);
 
 
   let content;
-  if (prjectsState.selectedProjectId === null) {
+  if (projectsState.selectedProjectId === null) {
     content = <NewProject onAdd={handleAddProject} />
-  } else if (prjectsState.selectedProjectId === undefined) {
+  } else if (projectsState.selectedProjectId === undefined) {
     content = <NoProjectSelected onStartAddProject={handleStartAddProject} />
 
   }
   return (
     <main className="h-screen my-8 flex gap-8">
-      <Sidebar onStartAddProject={handleStartAddProject} />
+      <Sidebar onStartAddProject={handleStartAddProject} projects={projectsState.projects} />
       {content}
     </main>
   );
