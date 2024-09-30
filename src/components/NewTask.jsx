@@ -6,6 +6,9 @@ const NewTask = ({ onAdd }) => {
         setEnteredTask(e.target.value)
     }
     function handleClick() {
+        if (enteredTask === '') {
+            return
+        }
         onAdd(enteredTask)
         setEnteredTask('')
     }
