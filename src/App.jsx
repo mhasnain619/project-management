@@ -12,7 +12,7 @@ function App() {
     tasks: []
   })
 
-  function handleAddingTasks({ text }) {
+  function handleAddingTasks(text) {
     setProjectsState(prevState => {
       const taskId = Math.random()
       const newTask = {
@@ -20,15 +20,19 @@ function App() {
         projectId: prevState.selectedProjectId,
         id: taskId
       }
-      debugger
       return {
         ...prevState,
         tasks: [newTask, ...prevState.tasks]
       }
     })
   }
-  function handleDeletingTasks() {
-
+  function handleDeleteTask(Id) {
+    setProjectsState(prevState => {
+      return {
+        ...prevState,
+        tasks: prevState.tasks.filter((task) => task.id !== Id)
+      }
+    })
   }
 
   function handleSelectProject(id) {
@@ -74,7 +78,6 @@ function App() {
   }
   function handleDeleteProject() {
     setProjectsState(prevState => {
-
       return {
         ...prevState,
         selectedProjectId: null,
@@ -89,7 +92,7 @@ function App() {
       project={selectedProject}
       onDelete={handleDeleteProject}
       onAddTask={handleAddingTasks}
-      onDeleteTask={handleDeletingTasks}
+      onDeleteTask={handleDeleteTask}
       tasks={projectsState.tasks}
     />
   )
