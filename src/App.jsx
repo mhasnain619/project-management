@@ -20,9 +20,10 @@ function App() {
         projectId: prevState.selectedProjectId,
         id: taskId
       }
+      debugger
       return {
         ...prevState,
-        newTask: [newTask, ...prevState.tasks]
+        tasks: [newTask, ...prevState.tasks]
       }
     })
   }
